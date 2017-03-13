@@ -78,6 +78,7 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'restful.wsgi.application'
 
+CRUNCHBASE_KEY= 'ce99739bc6c356dae9dea2d3be2e3800'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
