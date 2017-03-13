@@ -56,7 +56,7 @@ ROOT_URLCONF = 'restful.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['restful/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
