@@ -2,11 +2,29 @@
 
 {% block content %}
 
-    <form action="people" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Save"/>
-    </form>
+    <!-- <div>
+      <form action="people" method="POST">
+          {% csrf_token %}
+          {{ form }}
+          <input type="submit" value="Save"/>
+      </form>
+    </div> -->
+
+    <div class="container row">
+      <div class="col m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Enter Name</span>
+            <form action="people" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input class="blue darken-1" type="submit" value="Get"/>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
 {% endblock %}

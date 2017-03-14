@@ -2,11 +2,22 @@
 
 {% block content %}
 
-    <form action="organizations" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Save"/>
-    </form>
+
+
+    <div class="row">
+      <div class="col m6">
+        <div class="card teal darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Enter Name</span>
+            <form action="organizations" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input class="blue darken-1" type="submit" value="Get"/>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 {% endblock %}
