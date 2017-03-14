@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import OdmOrganization
-from .models import OdmPeople
+from .models import OdmOrganization, OdmPeople
 
 class OdmOrganizationAdmin(admin.ModelAdmin):
     fields = ['name', 'domain_name', 'locations']

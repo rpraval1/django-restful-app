@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.conf import settings
 
-# Create your views here.
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from djangoRestfulApp.serializers import UserSerializer, GroupSerializer
-
+from .models import OdmOrganization, OdmPeople
+from .forms import OdmOrgForm, OdmPeopleForm
+from .serializers import OdmOrgSerializer, OdmPeopleSerializer, UserSerializer, GroupSerializer
+import requests
+from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -20,3 +23,50 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+
+def index(request):
+    return render(request, 'djangoRestfulApp/index.html')
+
+def organization(request):
+    if request.method == "POST":
+        form = OdmOrgForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            r = requests.get('https://api.crunchbase.com/v/3/odm-organizations?name=' + name + '&user_key=' + settings.CRUNCHBASE_KEY)
+            json = r.json()
+            return render(request, 'djangoRestfulApp/organizations.html', {
+            'organization': json,
+            })
+    else:
+        form = OdmOrgForm()
+
+    return render(request, 'djangoRestfulApp/organizationForm.html', {
+        'form': form,
+    })
+
+
+def people(request):
+    if request.method == "POST":
+        form = OdmPeopleForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            r = requests.get('https://api.crunchbase.com/v/3/odm-people?name=' + name + '&user_key=' + settings.CRUNCHBASE_KEY)
+            json = r.json()
+            print(json)
+            serializer = OdmPeopleSerializer(data=json)
+            if serializer.is_valid():
+                people = serializer.save()
+                return render(request, 'djangoRestfulApp/people.html', {
+                'people': people,
+                })
+
+    else:
+        form = OdmPeopleForm()
+
+    return render(request, 'djangoRestfulApp/peopleForm.html', {
+        'form': form,
+    })

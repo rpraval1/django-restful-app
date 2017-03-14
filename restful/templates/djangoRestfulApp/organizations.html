@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div  class="card-panel hoverable">
+      Found {{organization.data.paging.total_items}} entries
+    </div>
+
+
+
+
+    {% for item in organization.data.items %}
+    <div class="col s12 m7">
+      <h2 class="header">{{ item.properties.name }}</h2>
+      <div class="card horizontal hoverable">
+        <div class="card-image">
+          <img src="{{ item.properties.profile_image_url }}">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>
+              {{ item.properties.short_description }}
+            </p>
+          </div>
+          <div class="card-action">
+            <a target="_blank" href="https://www.crunchbase.com/{{ item.properties.web_path }}">Link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}
