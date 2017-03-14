@@ -2,11 +2,38 @@
 
 {% block content %}
 
-    <ul>
-        <li>{{ people.name }}</li>
-        <li>{{ people.locations }}</li>
-        <li>{{ people.socials }}</li>
-        <li>{{ people.types }}</li>
-    </ul>
+<div  class="card-panel hoverable">
+  Found {{people.data.paging.total_items}} entries
+</div>
+
+{% for item in people.data.items %}
+<div class="col s12 m7">
+  <h2 class="header">{{ item.properties.first_name }} {{ item.properties.last_name }}, {{ item.properties.title}}</h2>
+  <div class="card horizontal hoverable">
+    <div class="card-image">
+      <img src="{{ item.properties.profile_image_url }}">
+    </div>
+    <div class="card-stacked">
+      <div class="card-content">
+        <li>
+          <a target="_blank" href="{{ item.properties.homepage_url}}">Home Page</a>
+        </li>
+        <li>
+          <a target="_blank" href="{{ item.properties.facebook_url}}">Facebook Page</a>
+        </li>
+        <li>
+          <a target="_blank" href="{{ item.properties.twitter_url}}">Twitter Page</a>
+        </li>
+        <li>
+          <a target="_blank" href="{{ item.properties.linkedin_url}}">LinkedIn Page</a>
+        </li>
+      </div>
+      <div class="card-action">
+        <a target="_blank" href="https://www.crunchbase.com/{{ item.properties.web_path }}">View CrunchBase Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}

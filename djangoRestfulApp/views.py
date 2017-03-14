@@ -56,13 +56,9 @@ def people(request):
             name = form.cleaned_data['name']
             r = requests.get('https://api.crunchbase.com/v/3/odm-people?name=' + name + '&user_key=' + settings.CRUNCHBASE_KEY)
             json = r.json()
-            print(json)
-            serializer = OdmPeopleSerializer(data=json)
-            if serializer.is_valid():
-                people = serializer.save()
-                return render(request, 'djangoRestfulApp/people.html', {
-                'people': people,
-                })
+            return render(request, 'djangoRestfulApp/people.html', {
+            'people': json,
+            })
 
     else:
         form = OdmPeopleForm()
